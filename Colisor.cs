@@ -19,12 +19,43 @@ public class Colisor : MonoBehaviour
 
     Renderer playerRender;
 
+    Collider collideer;
+
+
     bool isTransitioning = false;
+    bool isColliderEnabled = true;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         playerRender = GetComponent<Renderer>();
+        collideer = GetComponent<Collider>();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            isColliderEnabled = !isColliderEnabled;
+            collideer.enabled = isColliderEnabled;
+        }
+
+        DebugNext();
+    }
+
+    void DebugNext()
+    {
+        if (Input.GetKey(KeyCode.L))
+        {
+            isTransitioning = true;
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+            int nextScene = currentScene + 1;
+            if (nextScene == SceneManager.sceneCountInBuildSettings)
+            {
+                nextScene = 0;
+            }
+        SceneManager.LoadScene(nextScene);
+        }
     }
 
     void OnCollisionEnter(Collision other)
@@ -55,7 +86,7 @@ public class Colisor : MonoBehaviour
                 deathEfect.Play(deathEfect);
                 playerRender.enabled = false;
                 GetComponent<MovimentoFoguete>().enabled = false;
-                    break;
+                break;
 
             }
 

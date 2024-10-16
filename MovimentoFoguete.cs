@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovimentoFoguete : MonoBehaviour
 {
@@ -39,8 +40,12 @@ public class MovimentoFoguete : MonoBehaviour
             if (!audioSource.isPlaying)
             {
                 audioSource.PlayOneShot(soundEfect);
+                flyEfect.Play();
             }
-            flyEfect.Play();
+            else
+            {
+                flyEfect.Stop();
+            }
             
         }
 
